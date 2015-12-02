@@ -1,4 +1,10 @@
 AllCops:
+  Exclude: 
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'config/initializers/backtrace_silencers.rb'
+    - 'config/environments/**/*'
+    - 'config/routes.rb'
   RunRailsCops: true
 
 Style/Tab:
@@ -8,4 +14,7 @@ Style/IndentationWidth:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
   Enabled: false
