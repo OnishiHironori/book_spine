@@ -1,10 +1,10 @@
 AllCops:
   Exclude: 
-    - 'vendor/**/*'
-    - 'bin/**/*'
+    - 'bin/*'
     - 'config/initializers/backtrace_silencers.rb'
-    - 'config/environments/**/*'
+    - 'config/environments/*'
     - 'config/routes.rb'
+    - 'vendor/**/*'
   RunRailsCops: true
 
 Style/Tab:
