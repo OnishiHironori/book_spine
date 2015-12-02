@@ -7,25 +7,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` DATETIME    NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` DATETIME    NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `name` (`name`)
+  UNIQUE `name` (`name`)
 ) ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `books` (
-  `id`           BINARY(16)         NOT NULL,
-  `publisher_id` BINARY(16)         NOT NULL,
-  `has_image`    TINYINT UNSIGNED   NOT NULL DEFAULT 0,
-  `has_licensing` TINYINT UNSIGNED  NOT NULL DEFAULT 0,
-  `isbn`         VARCHAR(13)        NOT NULL DEFAULT '',
-  `nbn`          CHAR(10)           NOT NULL,
-  `size_mm_x`    MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
-  `size_mm_y`    MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
-  `created_at`   DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at`   DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `id`            BINARY(16)         NOT NULL,
+  `publisher_id`  BINARY(16)         NOT NULL,
+  `has_licensing` TINYINT UNSIGNED   NOT NULL DEFAULT 0,
+  `isbn`          CHAR(13)           NOT NULL,
+  `nbn`           CHAR(10)           NOT NULL,
+  `size_mm_x`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+  `size_mm_y`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+  `created_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  INDEX `on_publisher_id` (`publisher_id`),
-  INDEX `on_isbn` (`isbn`),
-  INDEX `on_nbn` (`nbn`)
+  INDEX  `on_publisher_id` (`publisher_id`),
+  INDEX  `on_isbn` (`isbn`),
+  INDEX  `on_nbn` (`nbn`),
+  UNIQUE `isbn_nbn` (`isbn`, `nbn`)
 ) ENGINE = InnoDB;
 
 
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `publishers` (
   `created_at`    DATETIME                             NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at`    DATETIME                             NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  INDEX        `on_has_licensing` (`has_licensing`),
-  UNIQUE INDEX `code` (`code`)
+  INDEX  `on_has_licensing` (`has_licensing`),
+  UNIQUE `code` (`code`)
 ) ENGINE = InnoDB;
 
 
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `user_accounts` (
   `created_at`      DATETIME     NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at`      DATETIME     NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `user_id` (`user_id`),
-  UNIQUE INDEX `mail_address` (`mail_address`)
+  UNIQUE `user_id` (`user_id`),
+  UNIQUE `mail_address` (`mail_address`)
 ) ENGINE = InnoDB;
 
 
@@ -62,6 +62,6 @@ CREATE TABLE IF NOT EXISTS `book_spines` (
   `created_at` DATETIME   NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` DATETIME   NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  INDEX        `on_user_id_book_id` (`user_id`, `book_id`),
-  UNIQUE INDEX `book_id_user_id` (`book_id`, `user_id`)
+  INDEX  `on_user_id_book_id` (`user_id`, `book_id`),
+  UNIQUE `book_id_user_id` (`book_id`, `user_id`)
 ) ENGINE = InnoDB;
