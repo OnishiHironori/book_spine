@@ -15,6 +15,6 @@ class Book < ActiveRecord::Base
 
 	def set_default
 		self.isbn          ||= '0000000000000'
-		self.nbn           ||= 'JP00000000'
+		self.nbn           ||= 'ZZ00000000'
 	end
 end
