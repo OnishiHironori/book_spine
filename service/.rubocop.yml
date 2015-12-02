@@ -1,0 +1,11 @@
+AllCops:
+  RunRailsCops: true
+
+Style/Tab:
+  Enabled: false
+
+Style/IndentationWidth:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
