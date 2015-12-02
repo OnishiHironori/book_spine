@@ -5,5 +5,5 @@ class BookSpine < ActiveRecord::Base
 	belong_to :book, foreign_key: :book_id
 
 	validates :user_id, presence: true
-	validates :book_id, uniqueness: {scope: :user_id}, presence: true
+	validates :book_id, uniqueness: { scope: :user_id }, presence: true
 end
