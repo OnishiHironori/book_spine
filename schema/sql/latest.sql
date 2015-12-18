@@ -19,12 +19,15 @@ CREATE TABLE IF NOT EXISTS `books` (
   `nbn`           CHAR(10)           NOT NULL,
   `size_mm_x`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `size_mm_y`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+  `published_at`  DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   INDEX  `on_publisher_id` (`publisher_id`),
   INDEX  `on_isbn` (`isbn`),
   INDEX  `on_nbn` (`nbn`),
+  INDEX  `on_published_at_isbn` (`published_at`, `isbn`),
+  INDEX  `on_published_at_nbn` (`published_at`, `nbn`),
   UNIQUE `isbn_nbn` (`isbn`, `nbn`)
 ) ENGINE = InnoDB;
 
