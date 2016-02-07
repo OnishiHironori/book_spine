@@ -16,19 +16,15 @@ CREATE TABLE IF NOT EXISTS `books` (
   `publisher_id`  BINARY(16)         NOT NULL,
   `has_licensing` TINYINT UNSIGNED   NOT NULL DEFAULT 0,
   `isbn`          CHAR(13)           NOT NULL,
-  `nbn`           CHAR(10)           NOT NULL,
-  `size_mm_x`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
-  `size_mm_y`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+  `size_x_mm`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+  `size_y_mm`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `published_at`  DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   INDEX  `on_publisher_id` (`publisher_id`),
   INDEX  `on_isbn` (`isbn`),
-  INDEX  `on_nbn` (`nbn`),
-  INDEX  `on_published_at_isbn` (`published_at`, `isbn`),
-  INDEX  `on_published_at_nbn` (`published_at`, `nbn`),
-  UNIQUE `isbn_nbn` (`isbn`, `nbn`)
+  UNIQUE `isbn_published_at` (`isbn`, `published_at`)
 ) ENGINE = InnoDB;
 
 
@@ -59,12 +55,13 @@ CREATE TABLE IF NOT EXISTS `user_accounts` (
 
 
 CREATE TABLE IF NOT EXISTS `book_spines` (
-  `id`         BINARY(16) NOT NULL,
-  `user_id`    BINARY(16) NOT NULL,
-  `book_id`    BINARY(16) NOT NULL,
-  `created_at` DATETIME   NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` DATETIME   NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `id`                  BINARY(16)       NOT NULL,
+  `user_id`             BINARY(16)       NOT NULL,
+  `book_id`             BINARY(16)       NOT NULL,
+	`has_wraparound_band` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `created_at`          DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at`          DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   INDEX  `on_user_id_book_id` (`user_id`, `book_id`),
-  UNIQUE `book_id_user_id` (`book_id`, `user_id`)
+  UNIQUE `book_id_has_wraparound_band_user_id` (`book_id`, `has_wraparound_band`, `user_id`)
 ) ENGINE = InnoDB;
