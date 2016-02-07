@@ -18,13 +18,13 @@ CREATE TABLE IF NOT EXISTS `books` (
   `isbn`          CHAR(13)           NOT NULL,
   `size_x_mm`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `size_y_mm`     MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
-  `published_at`  DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `published_on`  DATE               NOT NULL DEFAULT '0000-00-00',
   `created_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at`    DATETIME           NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   INDEX  `on_publisher_id` (`publisher_id`),
   INDEX  `on_isbn` (`isbn`),
-  UNIQUE `isbn_published_at` (`isbn`, `published_at`)
+  UNIQUE `isbn_published_on` (`isbn`, `published_on`)
 ) ENGINE = InnoDB;
 
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `book_spines` (
   `id`                  BINARY(16)       NOT NULL,
   `user_id`             BINARY(16)       NOT NULL,
   `book_id`             BINARY(16)       NOT NULL,
-	`has_wraparound_band` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `has_wraparound_band` TINYINT UNSIGNED NOT NULL DEFAULT 0,
   `created_at`          DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at`          DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
